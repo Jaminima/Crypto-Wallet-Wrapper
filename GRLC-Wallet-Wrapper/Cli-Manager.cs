@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using System.Threading.Tasks;
 using System.Diagnostics;
 using Newtonsoft.Json;
 
@@ -19,19 +19,18 @@ namespace GRLC_Wallet_Wrapper
             }
         }
 
-        public static string DoAndReadClientRequest(string command)
+        public static async Task<string> DoAndReadClientRequest(string command)
         {
             Process Req = garlicli;
             Req.StartInfo.Arguments = command;
             Req.Start();
 
-            string s = Req.StandardOutput.ReadToEnd();
-            return s;
+            return await Req .StandardOutput.ReadToEndAsync();
         }
 
-        public static T DoAndReadClientRequest<T>(string command)
+        public static async Task<T> DoAndReadClientRequest<T>(string command)
         {
-            string s = DoAndReadClientRequest(command);
+            string s = await DoAndReadClientRequest(command);
             return JsonConvert.DeserializeObject<T>(s);
         }
         public static void Start()
@@ -41,29 +40,29 @@ namespace GRLC_Wallet_Wrapper
             garlicoind.Start();
         }
 
-        public static Objects.Wallet GetWalletInfo()
+        public static async Task<Objects.Wallet> GetWalletInfo()
         {
-            return DoAndReadClientRequest<Objects.Wallet>("getwalletinfo");
+            return await DoAndReadClientRequest<Objects.Wallet>("getwalletinfo");
         }
 
-        public static string GetNetworkInfo()
+        public static async Task<string> GetNetworkInfo()
         {
-            return DoAndReadClientRequest("getnetworkinfo");
+            return await DoAndReadClientRequest("getnetworkinfo");
         }
 
-        public static string GetBlockChainInfo()
+        public static async Task<string> GetBlockChainInfo()
         {
-            return DoAndReadClientRequest("getblockchaininfo");
+            return await DoAndReadClientRequest("getblockchaininfo");
         }
 
-        public static bool IsNetworkRunning()
+        public static async Task<bool> IsNetworkRunning()
         {
-            return GetNetworkInfo().StartsWith("{");
+            return (await GetNetworkInfo()).StartsWith("{");
         }
 
-        public static string GetNewWalletAddress()
+        public static async Task<string> GetNewWalletAddress()
         {
-            return DoAndReadClientRequest("getnewaddress");
+            return await DoAndReadClientRequest("getnewaddress");
         }
     }
 }

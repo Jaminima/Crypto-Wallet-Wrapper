@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using GRLC_Wallet_Wrapper;
 
 namespace Demo_App
@@ -9,10 +11,15 @@ namespace Demo_App
         {
             //Cli_Manager.Start();
 
-            Console.WriteLine(Cli_Manager.IsNetworkRunning());
-            Console.WriteLine(Cli_Manager.GetBlockChainInfo());
+            new Thread(AppThread).Start();
 
             while (true) { }
+        }
+
+        static async void AppThread()
+        {
+            Console.WriteLine(await Cli_Manager.IsNetworkRunning());
+            Console.WriteLine(await Cli_Manager.GetBlockChainInfo());
         }
     }
 }
