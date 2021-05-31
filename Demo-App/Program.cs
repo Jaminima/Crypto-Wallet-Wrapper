@@ -22,9 +22,11 @@ namespace Demo_App
 
             if (!running) return;
 
-            string txid = await Cli_Payments.PayOut("MPDfUYATrVaNG9pX3Vg76QDtyrwmkzbeWa", 0.5f);
+            //string txid = await Cli_Payments.PayOut("MPDfUYATrVaNG9pX3Vg76QDtyrwmkzbeWa", 0.5f);
 
-            Console.WriteLine(txid);
+            //Console.WriteLine(txid);
+
+            await Cli_Payments.ConfirmPayment("MPDfUYATrVaNG9pX3Vg76QDtyrwmkzbeWa", "e1ce2e0a6adc4ef95667c4ceedfb14ea01f612379e2d19ca26af1957030c9b4f");
 
             //Console.WriteLine((await Cli_Gets.GetTransaction("ecb25199f01d40a942cf35ddf649289a9dee468c76533d789729f7acd1946511")).amount);
         }
