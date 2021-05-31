@@ -2,12 +2,16 @@
 {
     public class Account
     {
-        public string account, category, address, label;
+        public string account { get; set; }
+        public string category { get; set; }
+        public string address { get; set; }
+        public string label { get; set; }
 
-        public float amount, fee;
+        public float amount { get; set; }
+        public float fee { get; set; }
 
-        public bool abandoned;
+        public bool abandoned { get; set; }
 
-        public long vout;
+        public long vout { get; set; }
     }
 }

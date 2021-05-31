@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System.Threading;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GRLC_Wallet_Wrapper

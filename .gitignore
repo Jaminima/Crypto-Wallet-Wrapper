@@ -3,3 +3,6 @@ Demo-App/bin
 Demo-App/obj
 GRLC-Wallet-Wrapper/bin
 GRLC-Wallet-Wrapper/obj
+Wrapper-API/bin
+Wrapper-API/obj
+Wrapper-API/confirmedTxIds.txt

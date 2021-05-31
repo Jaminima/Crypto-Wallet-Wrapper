@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Wrapper_API</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GRLC-Wallet-Wrapper\GRLC-Wallet-Wrapper.csproj" />
+  </ItemGroup>
+
+
+</Project>

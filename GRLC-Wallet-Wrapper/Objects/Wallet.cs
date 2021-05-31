@@ -2,10 +2,18 @@
 {
     public class Wallet
     {
-        public string walletname, hdmasterkeyid;
+        public string walletname { get; set; }
+        public string hdmasterkeyid { get; set; }
 
-        public float balance, unconfimed_balance, immature_balance, paytxfee;
+        public float balance { get; set; }
+        public float unconfimed_balance { get; set; }
+        public float immature_balance { get; set; }
+        public float paytxfee { get; set; }
 
-        public long walletversion, txcount, keypoololdest, keypoolsize, keypoolsize_hd_internal;
+        public long walletversion { get; set; }
+        public long txcount { get; set; }
+        public long keypoololdest { get; set; }
+        public long keypoolsize { get; set; }
+        public long keypoolsize_hd_internal { get; set; }
     }
 }

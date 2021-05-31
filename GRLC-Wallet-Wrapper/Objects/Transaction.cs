@@ -2,12 +2,18 @@
 {
     public class Transaction
     {
-        public float amount, fee;
+        public float amount { get; set; }
+        public float fee { get; set; }
 
-        public string blockhash, txid;
+        public string blockhash { get; set; }
+        public string txid { get; set; }
 
-        public long confirmations, blockindex, blocktime, time, timereceived;
+        public long confirmations { get; set; }
+        public long blockindex { get; set; }
+        public long blocktime { get; set; }
+        public long time { get; set; }
+        public long timereceived { get; set; }
 
-        public Account[] details;
+        public Account[] details { get; set; }
     }
 }
