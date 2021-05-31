@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace GRLC_Wallet_Wrapper
 {
@@ -28,6 +29,11 @@ namespace GRLC_Wallet_Wrapper
             return s;
         }
 
+        public static T DoAndReadClientRequest<T>(string command)
+        {
+            string s = DoAndReadClientRequest(command);
+            return JsonConvert.DeserializeObject<T>(s);
+        }
         public static void Start()
         {
             garlicoind = new Process();
@@ -35,14 +41,24 @@ namespace GRLC_Wallet_Wrapper
             garlicoind.Start();
         }
 
-        public static string GetWalletInfo()
+        public static Objects.Wallet GetWalletInfo()
         {
-            return DoAndReadClientRequest("getwalletinfo");
+            return DoAndReadClientRequest<Objects.Wallet>("getwalletinfo");
         }
 
         public static string GetNetworkInfo()
         {
             return DoAndReadClientRequest("getnetworkinfo");
+        }
+
+        public static string GetBlockChainInfo()
+        {
+            return DoAndReadClientRequest("getblockchaininfo");
+        }
+
+        public static bool IsNetworkRunning()
+        {
+            return GetNetworkInfo().StartsWith("{");
         }
 
         public static string GetNewWalletAddress()

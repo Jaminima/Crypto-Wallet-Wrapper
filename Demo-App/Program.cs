@@ -9,7 +9,8 @@ namespace Demo_App
         {
             //Cli_Manager.Start();
 
-            Console.WriteLine(Cli_Manager.GetWalletInfo());
+            Console.WriteLine(Cli_Manager.IsNetworkRunning());
+            Console.WriteLine(Cli_Manager.GetBlockChainInfo());
 
             while (true) { }
         }
