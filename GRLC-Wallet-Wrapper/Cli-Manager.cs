@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Threading;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -77,13 +78,23 @@ namespace GRLC_Wallet_Wrapper
             return JsonConvert.DeserializeObject<T>(s);
         }
 
-        public static async void Start()
+        public static async void Start(bool IgnoreAlreadyRunning = true)
         {
-            if (await Cli_Gets.IsNetworkRunning()) throw new System.Exception("Network is already running!");
+            if (await Cli_Gets.IsNetworkRunning())
+            {
+                if (!IgnoreAlreadyRunning) throw new System.Exception("Network is already running!");
+            }
+            else
+            {
+                garlicoind = new Process();
+                garlicoind.StartInfo = new ProcessStartInfo("D:/Garlicoin/garlicoind.exe");
+                garlicoind.Start();
 
-            garlicoind = new Process();
-            garlicoind.StartInfo = new ProcessStartInfo("D:/Garlicoin/garlicoind.exe");
-            garlicoind.Start();
+                while (!await Cli_Gets.IsNetworkRunning())
+                {
+                    Thread.Sleep(5000);
+                }
+            }
         }
     }
 }

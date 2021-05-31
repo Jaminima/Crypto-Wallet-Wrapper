@@ -9,7 +9,11 @@ namespace Demo_App
     {
         private static void Main(string[] args)
         {
-            //Cli_Manager.Start();
+            Console.WriteLine("Ensuring the Network is Running, this may take some time.\n");
+
+            Cli_Manager.Start(true);
+
+            Console.WriteLine("Network Started Successfully.\n");
 
             new Thread(AppThread).Start();
 
@@ -18,11 +22,6 @@ namespace Demo_App
 
         private static async void AppThread()
         {
-            bool running = await Cli_Gets.IsNetworkRunning();
-            Console.WriteLine(running ? "Network Running" : "You Must Start the Network");
-
-            if (!running) return;
-
             //string txid = await Cli_Payments.PayOut("MPDfUYATrVaNG9pX3Vg76QDtyrwmkzbeWa", 0.5f);
 
             //Console.WriteLine(txid);
