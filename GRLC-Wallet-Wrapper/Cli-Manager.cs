@@ -15,6 +15,7 @@ namespace GRLC_Wallet_Wrapper
                 Process cli = new Process();
                 cli.StartInfo = new ProcessStartInfo("D:/Garlicoin/garlicoin-cli.exe");
                 cli.StartInfo.RedirectStandardOutput = true;
+                cli.StartInfo.RedirectStandardError = true;
                 return cli;
             }
         }
@@ -25,12 +26,21 @@ namespace GRLC_Wallet_Wrapper
             Req.StartInfo.Arguments = command;
             Req.Start();
 
-            return await Req.StandardOutput.ReadToEndAsync();
+            Req.WaitForExit();
+
+            if (Req.ExitCode != 0) {
+                throw new System.Exception(Req.StandardError.ReadToEnd().Split("error message:")[1]); 
+            }
+
+            string s = await Req.StandardOutput.ReadToEndAsync();
+
+            return s;
         }
 
         public static async Task<T> DoAndReadClientRequest<T>(string command)
         {
             string s = await DoAndReadClientRequest(command);
+            
             return JsonConvert.DeserializeObject<T>(s);
         }
 
