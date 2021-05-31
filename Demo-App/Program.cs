@@ -9,7 +9,7 @@ namespace Demo_App
     {
         static void Main(string[] args)
         {
-            //Cli_Manager.Start();
+            Cli_Manager.Start();
 
             new Thread(AppThread).Start();
 
@@ -18,8 +18,8 @@ namespace Demo_App
 
         static async void AppThread()
         {
-            Console.WriteLine(await Cli_Manager.IsNetworkRunning());
-            Console.WriteLine(await Cli_Manager.GetBlockChainInfo());
+            Console.WriteLine(await Cli_Actions.IsNetworkRunning());
+            Console.WriteLine(await Cli_Actions.GetBlockChainInfo());
         }
     }
 }
