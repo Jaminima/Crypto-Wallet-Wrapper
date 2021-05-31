@@ -1,13 +1,12 @@
-﻿using System;
+﻿using GRLC_Wallet_Wrapper;
+using System;
 using System.Threading;
-using System.Threading.Tasks;
-using GRLC_Wallet_Wrapper;
 
 namespace Demo_App
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             //Cli_Manager.Start();
 
@@ -16,9 +15,9 @@ namespace Demo_App
             while (true) { }
         }
 
-        static async void AppThread()
+        private static async void AppThread()
         {
-            Console.WriteLine(await Cli_Actions.IsNetworkRunning());
+            Console.WriteLine(await Cli_Actions.IsNetworkRunning() ? "Network Running" : "You Must Start the Network");
             Console.WriteLine((await Cli_Actions.GetTransaction("d44bf842d47be8b49827d34da5878720f1780eff6b25d7a21bd392fea6e49648")).amount);
         }
     }

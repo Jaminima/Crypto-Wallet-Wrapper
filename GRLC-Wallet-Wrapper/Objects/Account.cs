@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GRLC_Wallet_Wrapper.Objects
+﻿namespace GRLC_Wallet_Wrapper.Objects
 {
     public class Account
     {

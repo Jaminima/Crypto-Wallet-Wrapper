@@ -1,12 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 using System.Diagnostics;
-using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace GRLC_Wallet_Wrapper
 {
     public static class Cli_Manager
     {
-        static Process garlicoind;
+        private static Process garlicoind;
 
         public static Process garlicli
         {
@@ -28,8 +28,9 @@ namespace GRLC_Wallet_Wrapper
 
             Req.WaitForExit();
 
-            if (Req.ExitCode != 0) {
-                throw new System.Exception(Req.StandardError.ReadToEnd().Split("error message:")[1]); 
+            if (Req.ExitCode != 0)
+            {
+                throw new System.Exception(Req.StandardError.ReadToEnd().Split("error message:")[1]);
             }
 
             string s = await Req.StandardOutput.ReadToEndAsync();
@@ -40,7 +41,7 @@ namespace GRLC_Wallet_Wrapper
         public static async Task<T> DoAndReadClientRequest<T>(string command)
         {
             string s = await DoAndReadClientRequest(command);
-            
+
             return JsonConvert.DeserializeObject<T>(s);
         }
 
