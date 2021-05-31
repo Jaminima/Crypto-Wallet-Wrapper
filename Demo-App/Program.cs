@@ -13,7 +13,7 @@ namespace Demo_App
 
             new Thread(AppThread).Start();
 
-            while (true) { }
+            while (true) { Thread.Sleep(Int32.MaxValue); }
         }
 
         private static async void AppThread()
