@@ -2,7 +2,7 @@
 
 namespace GRLC_Wallet_Wrapper
 {
-    public static class Cli_Actions
+    public static class Cli_Gets
     {
         public static async Task<Objects.Wallet> GetWalletInfo()
         {
@@ -41,7 +41,7 @@ namespace GRLC_Wallet_Wrapper
 
         public static async Task<Objects.Transaction> GetTransaction(string txid)
         {
-            return await Cli_Manager.DoAndReadClientRequest<Objects.Transaction>($"gettransaction {txid}");
+            return await Cli_Manager.DoAndReadClientRequest<Objects.Transaction>("gettransaction", txid);
         }
     }
 }

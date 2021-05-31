@@ -22,8 +22,25 @@ namespace GRLC_Wallet_Wrapper
 
         public static async Task<string> DoAndReadClientRequest(string command)
         {
+            return await DoAndReadClientRequest(new string[] { command });
+        }
+
+        public static async Task<string> DoAndReadClientRequest(string command1, string command2)
+        {
+            return await DoAndReadClientRequest(new string[] { command1, command2 });
+        }
+
+        public static async Task<string> DoAndReadClientRequest(string command1, string command2, string command3)
+        {
+            return await DoAndReadClientRequest(new string[] { command1, command2, command3 });
+        }
+
+        public static async Task<string> DoAndReadClientRequest(string[] commands)
+        {
             Process Req = garlicli;
-            Req.StartInfo.Arguments = command;
+
+            foreach (string c in commands) Req.StartInfo.ArgumentList.Add(c);
+
             Req.Start();
 
             Req.WaitForExit();
@@ -40,14 +57,29 @@ namespace GRLC_Wallet_Wrapper
 
         public static async Task<T> DoAndReadClientRequest<T>(string command)
         {
-            string s = await DoAndReadClientRequest(command);
+            return await DoAndReadClientRequest<T>(new string[] { command });
+        }
+
+        public static async Task<T> DoAndReadClientRequest<T>(string command1, string command2)
+        {
+            return await DoAndReadClientRequest<T>(new string[] { command1, command2 });
+        }
+
+        public static async Task<T> DoAndReadClientRequest<T>(string command1, string command2, string command3)
+        {
+            return await DoAndReadClientRequest<T>(new string[] { command1, command2, command3 });
+        }
+
+        public static async Task<T> DoAndReadClientRequest<T>(string[] commands)
+        {
+            string s = await DoAndReadClientRequest(commands);
 
             return JsonConvert.DeserializeObject<T>(s);
         }
 
         public static async void Start()
         {
-            if (await Cli_Actions.IsNetworkRunning()) throw new System.Exception("Network is already running!");
+            if (await Cli_Gets.IsNetworkRunning()) throw new System.Exception("Network is already running!");
 
             garlicoind = new Process();
             garlicoind.StartInfo = new ProcessStartInfo("D:/Garlicoin/garlicoind.exe");

@@ -17,8 +17,16 @@ namespace Demo_App
 
         private static async void AppThread()
         {
-            Console.WriteLine(await Cli_Actions.IsNetworkRunning() ? "Network Running" : "You Must Start the Network");
-            Console.WriteLine((await Cli_Actions.GetTransaction("d44bf842d47be8b49827d34da5878720f1780eff6b25d7a21bd392fea6e49648")).amount);
+            bool running = await Cli_Gets.IsNetworkRunning();
+            Console.WriteLine(running ? "Network Running" : "You Must Start the Network");
+
+            if (!running) return;
+
+            string txid = await Cli_Payments.PayOut("MPDfUYATrVaNG9pX3Vg76QDtyrwmkzbeWa", 0.5f);
+
+            Console.WriteLine(txid);
+
+            //Console.WriteLine((await Cli_Gets.GetTransaction("ecb25199f01d40a942cf35ddf649289a9dee468c76533d789729f7acd1946511")).amount);
         }
     }
 }
