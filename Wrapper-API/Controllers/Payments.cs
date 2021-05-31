@@ -8,15 +8,19 @@ namespace Wrapper_API.Controllers
     public class Payments : Controller
     {
         [HttpGet("Register")]
-        public void Register([FromQuery] string _nick)
+        public void Register([FromQuery] string nick)
         {
-            Wrapper_API.User.users.Add(new Wrapper_API.User() { balance = 0, nick = _nick });
+            WUser u = new WUser() { balance = 0, nickname = nick.Trim() };
+            WUser.users.Add(u);
+            string rstr = Authentication.TrackAuthentication(u);
+            Response.Cookies.Append("authkey",rstr);
         }
 
         [HttpGet("Account")]
-        public Wrapper_API.User Account([FromQuery] string _nick)
+        public WUser Account()
         {
-            return Wrapper_API.User.users.Find(x => x.nick == _nick);
+            WUser user = Authentication.CheckAuthed(Request.Cookies["authkey"]);
+            return user;
         }
 
         [HttpGet("Balance")]
@@ -26,19 +30,29 @@ namespace Wrapper_API.Controllers
         }
 
         [HttpGet("PayInAddress")]
-        public async Task<string> PayIn([FromQuery] string _nick)
+        public async Task<string> PayIn()
         {
-            string addr = await Cli_Gets.GetNewWalletAddress();
-            Wrapper_API.User.userPayInAddresses.Add(addr.Trim(), Wrapper_API.User.users.Find(x => x.nick == _nick));
+            WUser u = Authentication.CheckAuthed(Request.Cookies["authkey"]);
+            if (u == null) { 
+                Response.StatusCode = 401; 
+                return ""; 
+            }
+
+            string addr = (await Cli_Gets.GetNewWalletAddress()).Trim();
+            u.inAddress = addr;
             return addr;
         }
 
         [HttpGet("Confirm")]
-        public async Task<bool> ConfirmTransaction([FromQuery] string txId, [FromQuery] string destAddr)
+        public async Task<bool> ConfirmTransaction([FromQuery] string txId)
         {
-            Wrapper_API.User u = Wrapper_API.User.userPayInAddresses[destAddr];
+            WUser u = Authentication.CheckAuthed(Request.Cookies["authkey"]);
+            if (u == null) {
+                Response.StatusCode = 401;
+                return false;
+            }
 
-            Account a = await Cli_Payments.ConfirmPayment(destAddr, txId);
+            Account a = await Cli_Payments.ConfirmPayment(u.inAddress, txId.Trim());
             if (a != null)
             {
                 u.balance += a.amount;
