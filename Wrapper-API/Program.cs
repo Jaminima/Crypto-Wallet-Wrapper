@@ -1,7 +1,7 @@
-using Wallet_Wrapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using System;
+using Wallet_Wrapper;
 
 namespace Wrapper_API
 {

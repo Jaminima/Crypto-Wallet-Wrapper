@@ -14,7 +14,7 @@ namespace Wallet_Wrapper
             get
             {
                 Process cli = new Process();
-                cli.StartInfo = new ProcessStartInfo(Config.conf.CorePath+Config.conf.cliName);
+                cli.StartInfo = new ProcessStartInfo(Config.conf.CorePath + Config.conf.cliName);
                 cli.StartInfo.RedirectStandardOutput = true;
                 cli.StartInfo.RedirectStandardError = true;
                 cli.StartInfo.CreateNoWindow = false;

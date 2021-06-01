@@ -1,8 +1,8 @@
-﻿using Wallet_Wrapper;
-using Wallet_Wrapper.Objects;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Wallet_Wrapper;
+using Wallet_Wrapper.Objects;
 
 namespace Wrapper_API.Controllers
 {

@@ -41,7 +41,7 @@ namespace Wallet_Wrapper
 
         public static async Task<Objects.Address> VerifyAddress(string address)
         {
-            return await Cli_Manager.DoAndReadClientRequest<Objects.Address>("validateaddress",address);
+            return await Cli_Manager.DoAndReadClientRequest<Objects.Address>("validateaddress", address);
         }
 
         public static async Task<Objects.Transaction> GetTransaction(string txid)

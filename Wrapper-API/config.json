@@ -1,1 +1,5 @@
-{"CorePath":"D:/Garlicoin/","coindName":"garlicoind.exe","cliName":"garlicoin-cli.exe"}
+{
+  "CorePath": "D:/Garlicoin/",
+  "coindName": "garlicoind.exe",
+  "cliName": "garlicoin-cli.exe"
+}

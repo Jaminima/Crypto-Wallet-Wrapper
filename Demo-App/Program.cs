@@ -1,7 +1,6 @@
-﻿using Wallet_Wrapper;
-using Wallet_Wrapper.Objects;
-using System;
+﻿using System;
 using System.Threading;
+using Wallet_Wrapper;
 
 namespace Demo_App
 {
