@@ -2,8 +2,6 @@
 
 This project aims to provide simplified interaction with [Bitcoin Core](https://github.com/bitcoin/bitcoin) like wallets. Enabling the writing of C# apps that can exploit the wallet libray or web enabled apps via the provided simple API.
 
----
-
 ## Important Notes
 
 ## No Security
@@ -16,13 +14,9 @@ Said session key is stored in plain text in the API's memory. You **WILL** want 
 
 Confirmed txID's (Wrapper Library) and User (API) data is currently stored in a flat file format. In any production environment it is highly recommended that you use a proper dB service. Chosing not to do so increases the risk of data corruption, especially at higher loads when write collisions may cause a crash.
 
----
-
 # Set-Up
 
 In this section we will go through setting up a Core wallet example along with changing the config to work with said wallet.
-
----
 
 Download your Crypto's core files.
 
@@ -34,18 +28,12 @@ Download your Crypto's core files.
 
 - [Litecoin Core](https://github.com/litecoin-project/litecoin/releases)
 
----
-
 Once downloaded and followed the typical steps to download and setup your core. Find the config.json which gets auto generated on first run of the library. Change your corepath, coindName and cliName to match those in your core folder.
 
 When using Garlicoin Core my config ends up looking like:
 
-| ![](C:\Users\oscar\AppData\Roaming\marktext\images\2021-06-01-12-47-40-image.png) | <img title="" src="file:///C:/Users/oscar/AppData/Roaming/marktext/images/2021-06-01-12-47-47-image.png" alt="" data-align="right" width="505"> |
-| --------------------------------------------------------------------------------- |:----------------------------------------------------------------------------------------------------------------------------------------------- |
-
----
-
-
+| ![](https://github.com/Jaminima/Crypto-Wallet-Wrapper/blob/main/Imgs/FolderContents.png) | ![](https://github.com/Jaminima/Crypto-Wallet-Wrapper/blob/main/Imgs/Config.png) |
+| ---------------------------------------------------------------------------------------- |:-------------------------------------------------------------------------------- |
 
 # Working with the Libray
 
@@ -81,8 +69,6 @@ string newAddress = await GetNewWalletAddress();
 
 bool networkRunning = await IsNetworkRunning();
 ```
-
----
 
 # Working with the API
 
