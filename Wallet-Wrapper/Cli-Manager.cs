@@ -14,7 +14,7 @@ namespace Wallet_Wrapper
             get
             {
                 Process cli = new Process();
-                cli.StartInfo = new ProcessStartInfo("D:/Garlicoin/garlicoin-cli.exe");
+                cli.StartInfo = new ProcessStartInfo(Config.conf.CorePath+Config.conf.cliName);
                 cli.StartInfo.RedirectStandardOutput = true;
                 cli.StartInfo.RedirectStandardError = true;
                 cli.StartInfo.CreateNoWindow = false;
@@ -89,7 +89,7 @@ namespace Wallet_Wrapper
             else
             {
                 garlicoind = new Process();
-                garlicoind.StartInfo = new ProcessStartInfo("D:/Garlicoin/garlicoind.exe");
+                garlicoind.StartInfo = new ProcessStartInfo(Config.conf.CorePath + Config.conf.coindName);
                 garlicoind.Start();
 
                 while (!await Cli_Gets.IsNetworkRunning())

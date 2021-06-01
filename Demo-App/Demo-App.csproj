@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GRLC-Wallet-Wrapper\GRLC-Wallet-Wrapper.csproj" />
     <ProjectReference Include="..\Wallet-Wrapper\Wallet-Wrapper.csproj" />
   </ItemGroup>
 

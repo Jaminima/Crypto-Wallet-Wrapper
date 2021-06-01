@@ -26,7 +26,7 @@ namespace Demo_App
 
             //Console.WriteLine(txid);
 
-            dynamic p = await Cli_Gets.VerifyAddress("MPDfUYATrVaNG9pX3Vg76QDtyrwmkzbeW");
+            dynamic p = await Cli_Gets.VerifyAddress("MPDfUYATrVaNG9pX3Vg76QDtyrwmkzbeWa");
 
             //Object acc1 = await Cli_Payments.ConfirmPayment("MPDfUYATrVaNG9pX3Vg76QDtyrwmkzbeWa", "e1ce2e0a6adc4ef95667c4ceedfb14ea01f612379e2d19ca26af1957030c9b4f");
             //Object acc2 = await Cli_Payments.ConfirmPayment("MPDfUYATrVaNG9pX3Vg76QDtyrwmkzbeWa", "e1ce2e0a6adc4ef95667c4ceedfb14ea01f612379e2d19ca26af1957030c9b4f");
