@@ -1,4 +1,4 @@
-﻿namespace GRLC_Wallet_Wrapper.Objects
+﻿namespace Wallet_Wrapper.Objects
 {
     public class Account
     {

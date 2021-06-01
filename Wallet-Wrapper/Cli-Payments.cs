@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GRLC_Wallet_Wrapper
+namespace Wallet_Wrapper
 {
     public static class Cli_Payments
     {

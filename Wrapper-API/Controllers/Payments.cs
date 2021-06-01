@@ -1,5 +1,5 @@
-﻿using GRLC_Wallet_Wrapper;
-using GRLC_Wallet_Wrapper.Objects;
+﻿using Wallet_Wrapper;
+using Wallet_Wrapper.Objects;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;

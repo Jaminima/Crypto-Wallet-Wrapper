@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace GRLC_Wallet_Wrapper
+namespace Wallet_Wrapper
 {
     public static class ConfirmedTxs
     {

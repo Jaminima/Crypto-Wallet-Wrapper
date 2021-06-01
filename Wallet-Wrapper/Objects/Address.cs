@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GRLC_Wallet_Wrapper.Objects
+namespace Wallet_Wrapper.Objects
 {
-    public class GrlcAddress
+    public class Address
     {
         public bool isvalid { get; set; }
         public string address { get; set; }

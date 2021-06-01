@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31313.79
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GRLC-Wallet-Wrapper", "GRLC-Wallet-Wrapper\GRLC-Wallet-Wrapper.csproj", "{5A180CE0-D39F-400B-A54E-C1FD3C306030}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wallet-Wrapper", "Wallet-Wrapper\Wallet-Wrapper.csproj", "{5A180CE0-D39F-400B-A54E-C1FD3C306030}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo-App", "Demo-App\Demo-App.csproj", "{4FB554D9-7839-4BD8-856E-4E0F2FD66ED9}"
 EndProject

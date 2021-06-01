@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace GRLC_Wallet_Wrapper
+namespace Wallet_Wrapper
 {
     public static class Cli_Gets
     {
@@ -39,9 +39,9 @@ namespace GRLC_Wallet_Wrapper
             return await Cli_Manager.DoAndReadClientRequest("listaccounts");
         }
 
-        public static async Task<Objects.GrlcAddress> VerifyAddress(string address)
+        public static async Task<Objects.Address> VerifyAddress(string address)
         {
-            return await Cli_Manager.DoAndReadClientRequest<Objects.GrlcAddress>("validateaddress",address);
+            return await Cli_Manager.DoAndReadClientRequest<Objects.Address>("validateaddress",address);
         }
 
         public static async Task<Objects.Transaction> GetTransaction(string txid)

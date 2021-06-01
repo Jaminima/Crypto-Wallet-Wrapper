@@ -7,3 +7,5 @@ Wrapper-API/bin
 Wrapper-API/obj
 Wrapper-API/confirmedTxIds.txt
 Wrapper-API/users.json
+Wallet-Wrapper/bin
+Wallet-Wrapper/obj
