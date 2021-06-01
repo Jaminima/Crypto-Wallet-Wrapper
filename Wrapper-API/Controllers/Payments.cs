@@ -47,7 +47,7 @@ namespace Wrapper_API.Controllers
                 u.Updated();
                 return u;
             }
-            Response.StatusCode = 401;
+            Response.StatusCode = 400;
             return a;
         }
 
@@ -63,6 +63,12 @@ namespace Wrapper_API.Controllers
                 return "Not Signed In";
             }
 
+            if (!(await Cli_Gets.VerifyAddress(outAddr)).isvalid)
+            {
+                Response.StatusCode = 400;
+                return "Dest Address Is Invalid";
+            }
+
             if (u.balance >= amount)
             {
                 u.balance -= amount;
@@ -71,7 +77,7 @@ namespace Wrapper_API.Controllers
             }
             else
             {
-                Response.StatusCode = 401;
+                Response.StatusCode = 400;
                 return "You dont have enough balance.";
             }
         }

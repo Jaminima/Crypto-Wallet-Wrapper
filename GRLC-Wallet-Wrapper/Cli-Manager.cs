@@ -45,9 +45,9 @@ namespace GRLC_Wallet_Wrapper
 
             Req.Start();
 
-            Req.WaitForExit(5000);
+            bool finished = Req.WaitForExit(5000);
 
-            if (Req.ExitCode != 0 || !Req.HasExited)
+            if (Req.ExitCode != 0 || !finished)
             {
                 Req.Kill();
                 throw new System.Exception(Req.StandardError.ReadToEnd());
