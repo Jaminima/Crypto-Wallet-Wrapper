@@ -1,7 +1,7 @@
+using GRLC_Wallet_Wrapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using System;
-using GRLC_Wallet_Wrapper;
 
 namespace Wrapper_API
 {

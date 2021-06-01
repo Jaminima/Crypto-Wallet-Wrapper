@@ -1,8 +1,8 @@
 ﻿using GRLC_Wallet_Wrapper;
 using GRLC_Wallet_Wrapper.Objects;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using System;
+using System.Threading.Tasks;
 
 namespace Wrapper_API.Controllers
 {
@@ -14,7 +14,7 @@ namespace Wrapper_API.Controllers
             WUser u = new WUser() { balance = 0, nickname = nick.Trim() };
             WUser.users.Add(u);
             string rstr = Authentication.TrackAuthentication(u);
-            Response.Cookies.Append("authkey",rstr);
+            Response.Cookies.Append("authkey", rstr);
         }
 
         [HttpGet("Account")]
@@ -34,9 +34,10 @@ namespace Wrapper_API.Controllers
         public async Task<string> PayIn()
         {
             WUser u = Authentication.CheckAuthed(Request.Cookies["authkey"]);
-            if (u == null) { 
-                Response.StatusCode = 401; 
-                return ""; 
+            if (u == null)
+            {
+                Response.StatusCode = 401;
+                return "";
             }
 
             string addr = (await Cli_Gets.GetNewWalletAddress()).Trim();
@@ -48,7 +49,8 @@ namespace Wrapper_API.Controllers
         public async Task<bool> ConfirmTransaction([FromQuery] string txId)
         {
             WUser u = Authentication.CheckAuthed(Request.Cookies["authkey"]);
-            if (u == null) {
+            if (u == null)
+            {
                 Response.StatusCode = 401;
                 return false;
             }
@@ -63,9 +65,8 @@ namespace Wrapper_API.Controllers
             return false;
         }
 
-
         [HttpGet("Withdraw")]
-        public async Task<string> Withdraw([FromQuery] string outAddr, [FromQuery]float amount)
+        public async Task<string> Withdraw([FromQuery] string outAddr, [FromQuery] float amount)
         {
             amount = Math.Abs(amount);
 
@@ -86,7 +87,6 @@ namespace Wrapper_API.Controllers
                 Response.StatusCode = 401;
                 return "You dont have enough balance.";
             }
-
         }
     }
 }

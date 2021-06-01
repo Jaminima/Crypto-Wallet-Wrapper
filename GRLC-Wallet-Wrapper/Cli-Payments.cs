@@ -17,8 +17,9 @@ namespace GRLC_Wallet_Wrapper
 
             Objects.Transaction t = await Cli_Gets.GetTransaction(txId);
 
-            if (t.confirmations < 5) { 
-                return "Wait Till 5 Confimations"; 
+            if (t.confirmations < 5)
+            {
+                return "Wait Till 5 Confimations";
             }
 
             IEnumerable<Objects.Account> f = t.details.Where(x => x.category == "receive" && x.address == receiveAddress);

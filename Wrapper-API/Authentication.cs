@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Scrypt;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Scrypt;
 
 namespace Wrapper_API
 {
