@@ -12,7 +12,7 @@ namespace Wrapper_API.Controllers
         public void Register([FromQuery] string nick)
         {
             WUser u = new WUser() { balance = 0, nickname = nick.Trim() };
-            WUser.users.Add(u);
+            WUser.AddUser(u);
             string rstr = Authentication.TrackAuthentication(u);
             Response.Cookies.Append("authkey", rstr);
         }
@@ -42,11 +42,12 @@ namespace Wrapper_API.Controllers
 
             string addr = (await Cli_Gets.GetNewWalletAddress()).Trim();
             u.inAddress = addr;
+            u.Updated();
             return addr;
         }
 
         [HttpGet("Confirm")]
-        public async Task<bool> ConfirmTransaction([FromQuery] string txId)
+        public async Task<object> ConfirmTransaction([FromQuery] string txId)
         {
             WUser u = Authentication.CheckAuthed(Request.Cookies["authkey"]);
             if (u == null)
@@ -59,10 +60,11 @@ namespace Wrapper_API.Controllers
             if (a.GetType() == typeof(Account))
             {
                 u.balance += ((Account)a).amount;
-                return true;
+                u.Updated();
+                return u;
             }
             Response.StatusCode = 401;
-            return false;
+            return a;
         }
 
         [HttpGet("Withdraw")]
@@ -80,6 +82,7 @@ namespace Wrapper_API.Controllers
             if (u.balance >= amount)
             {
                 u.balance -= amount;
+                u.Updated();
                 return await Cli_Payments.PayOut(outAddr, amount);
             }
             else

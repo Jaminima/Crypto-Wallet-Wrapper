@@ -26,11 +26,11 @@ namespace Demo_App
 
             //Console.WriteLine(txid);
 
-            Account acc1 = await Cli_Payments.ConfirmPayment("MPDfUYATrVaNG9pX3Vg76QDtyrwmkzbeWa", "e1ce2e0a6adc4ef95667c4ceedfb14ea01f612379e2d19ca26af1957030c9b4f");
-            Account acc2 = await Cli_Payments.ConfirmPayment("MPDfUYATrVaNG9pX3Vg76QDtyrwmkzbeWa", "e1ce2e0a6adc4ef95667c4ceedfb14ea01f612379e2d19ca26af1957030c9b4f");
+            Object acc1 = await Cli_Payments.ConfirmPayment("MPDfUYATrVaNG9pX3Vg76QDtyrwmkzbeWa", "e1ce2e0a6adc4ef95667c4ceedfb14ea01f612379e2d19ca26af1957030c9b4f");
+            Object acc2 = await Cli_Payments.ConfirmPayment("MPDfUYATrVaNG9pX3Vg76QDtyrwmkzbeWa", "e1ce2e0a6adc4ef95667c4ceedfb14ea01f612379e2d19ca26af1957030c9b4f");
 
-            Console.WriteLine(acc1 != null ? "Verified Transaction" : "Failed To Verify");
-            Console.WriteLine(acc2 != null ? "Verified Transaction" : "Failed To Verify");
+            Console.WriteLine(acc1.GetType() == typeof(Account) ? "Verified Transaction" : "Failed To Verify");
+            Console.WriteLine(acc2.GetType() == typeof(Account) ? "Verified Transaction" : "Failed To Verify");
 
             //Console.WriteLine((await Cli_Gets.GetTransaction("ecb25199f01d40a942cf35ddf649289a9dee468c76533d789729f7acd1946511")).amount);
         }

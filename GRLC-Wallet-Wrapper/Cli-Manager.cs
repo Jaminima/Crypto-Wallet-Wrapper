@@ -45,10 +45,11 @@ namespace GRLC_Wallet_Wrapper
 
             Req.Start();
 
-            Req.WaitForExit();
+            Req.WaitForExit(5000);
 
-            if (Req.ExitCode != 0)
+            if (Req.ExitCode != 0 || !Req.HasExited)
             {
+                Req.Kill();
                 throw new System.Exception(Req.StandardError.ReadToEnd());
             }
 

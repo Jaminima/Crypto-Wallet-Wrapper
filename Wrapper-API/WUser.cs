@@ -1,10 +1,38 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Wrapper_API
 {
     public class WUser
     {
-        public static List<WUser> users = new List<WUser>();
+        private static List<WUser> users = new List<WUser>();
+
+        private static List<WUser> LoadUsers()
+        {
+            List<WUser> set = new List<WUser>();
+
+            if (File.Exists("./users.json"))
+            {
+                StreamReader reader = new StreamReader(new FileStream("./users.json", FileMode.Open));
+                string s = reader.ReadToEnd();
+
+                set = JsonConvert.DeserializeObject<List<WUser>>(s);
+                reader.Close();
+            }
+            return set;
+        }
+
+        private static void SaveUsers()
+        {
+
+            if (File.Exists("./users.json")) File.Delete("./users.json");
+
+            StreamWriter writer = new StreamWriter(new FileStream("./users.json", FileMode.CreateNew));
+            writer.Write(JsonConvert.SerializeObject(users));
+            writer.Flush();
+            writer.Close();
+        }
 
         public static WUser GetUser(string nick)
         {
@@ -14,6 +42,12 @@ namespace Wrapper_API
         public static void AddUser(WUser u)
         {
             users.Add(u);
+            SaveUsers();
+        }
+
+        public void Updated()
+        {
+            SaveUsers();
         }
 
         public float balance { get; set; }
