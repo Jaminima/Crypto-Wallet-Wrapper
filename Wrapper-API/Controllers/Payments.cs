@@ -2,6 +2,7 @@
 using GRLC_Wallet_Wrapper.Objects;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using System;
 
 namespace Wrapper_API.Controllers
 {
@@ -52,13 +53,40 @@ namespace Wrapper_API.Controllers
                 return false;
             }
 
-            Account a = await Cli_Payments.ConfirmPayment(u.inAddress, txId.Trim());
-            if (a != null)
+            Object a = await Cli_Payments.ConfirmPayment(u.inAddress, txId.Trim());
+            if (a.GetType() == typeof(Account))
             {
-                u.balance += a.amount;
+                u.balance += ((Account)a).amount;
                 return true;
             }
+            Response.StatusCode = 401;
             return false;
+        }
+
+
+        [HttpGet("Withdraw")]
+        public async Task<string> Withdraw([FromQuery] string outAddr, [FromQuery]float amount)
+        {
+            amount = Math.Abs(amount);
+
+            WUser u = Authentication.CheckAuthed(Request.Cookies["authkey"]);
+            if (u == null)
+            {
+                Response.StatusCode = 401;
+                return "Not Signed In";
+            }
+
+            if (u.balance >= amount)
+            {
+                u.balance -= amount;
+                return await Cli_Payments.PayOut(outAddr, amount);
+            }
+            else
+            {
+                Response.StatusCode = 401;
+                return "You dont have enough balance.";
+            }
+
         }
     }
 }

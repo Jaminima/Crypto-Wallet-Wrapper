@@ -22,6 +22,7 @@ namespace GRLC_Wallet_Wrapper
                 string s = reader.ReadToEnd();
 
                 foreach (string line in s.Split("\n")) set.Add(line);
+                reader.Close();
             }
             return set;
         }
