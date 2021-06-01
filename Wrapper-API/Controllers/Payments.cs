@@ -17,10 +17,26 @@ namespace Wrapper_API.Controllers
             Response.Cookies.Append("authkey", rstr);
         }
 
+        [HttpGet("Login")]
+        public void Login([FromQuery] string nick)
+        {
+            WUser user = WUser.GetUser(nick);
+
+            if (user == null)
+            {
+                Register(nick);
+                return;
+            }
+
+            string rstr = Authentication.TrackAuthentication(user);
+            Response.Cookies.Append("authkey", rstr);
+        }
+
         [HttpGet("Account")]
         public WUser Account()
         {
             WUser user = Authentication.CheckAuthed(Request.Cookies["authkey"]);
+            if (user == null) Response.StatusCode = 401;
             return user;
         }
 

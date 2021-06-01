@@ -6,3 +6,4 @@ GRLC-Wallet-Wrapper/obj
 Wrapper-API/bin
 Wrapper-API/obj
 Wrapper-API/confirmedTxIds.txt
+Wrapper-API/users.json

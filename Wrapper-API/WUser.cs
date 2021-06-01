@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
 
 namespace Wrapper_API
 {
     public class WUser
     {
-        private static List<WUser> users = new List<WUser>();
+        private static List<WUser> users = LoadUsers();
 
         private static List<WUser> LoadUsers()
         {
@@ -25,7 +25,6 @@ namespace Wrapper_API
 
         private static void SaveUsers()
         {
-
             if (File.Exists("./users.json")) File.Delete("./users.json");
 
             StreamWriter writer = new StreamWriter(new FileStream("./users.json", FileMode.CreateNew));

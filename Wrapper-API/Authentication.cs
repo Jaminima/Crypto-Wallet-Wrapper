@@ -13,7 +13,10 @@ namespace Wrapper_API
 
         public static WUser CheckAuthed(string authstr)
         {
-            return authedUsers[authstr];
+            if (authedUsers.ContainsKey(authstr))
+                return authedUsers[authstr];
+            else
+                return null;
         }
 
         private static void AuthTrackUser(WUser user, string rstr)
