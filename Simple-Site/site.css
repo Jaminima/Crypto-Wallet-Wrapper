@@ -5,3 +5,7 @@
     transform: translate(-50%, -50%);
     width: fit-content;
 }
+
+.card-margin{
+    margin: 10px;
+}

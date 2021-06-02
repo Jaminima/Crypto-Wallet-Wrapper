@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace Wrapper_API.Controllers
 {
@@ -10,7 +11,7 @@ namespace Wrapper_API.Controllers
             WUser u = new WUser() { balance = 0, nickname = nick.Trim() };
             WUser.AddUser(u);
             string rstr = Authentication.TrackAuthentication(u);
-            Response.Cookies.Append("authkey", rstr);
+            Response.Cookies.Append("authkey", rstr, new CookieOptions() { HttpOnly = true, Path="/" });
             return u;
         }
 
@@ -25,7 +26,7 @@ namespace Wrapper_API.Controllers
             }
 
             string rstr = Authentication.TrackAuthentication(user);
-            Response.Cookies.Append("authkey", rstr);
+            Response.Cookies.Append("authkey", rstr, new CookieOptions() { HttpOnly = true, Path = "/" });
             return user;
         }
 

@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Account</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.0.1/dist/quartz/bootstrap.min.css">
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
-  <script src="js/login.js"></script>
+  <script src="js/account.js"></script>
 
   <link rel="stylesheet" href="site.css">
 </head>
@@ -25,20 +25,27 @@
     <div class="collapse navbar-collapse" id="navbarColor02">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Home
-            <span class="visually-hidden">(current)</span>
+          <a class="nav-link" href="./index.html">Home
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="account.html">Account</a>
+          <a class="nav-link active" href="#">Account
+            <span class="visually-hidden">(current)</span></a>
         </li>
       </ul>
-      <form class="d-flex">
-        <button class="btn btn-secondary" type="button" onclick="window.location.href='login.html'">Login</button>
-      </form>
     </div>
   </div>
 </nav>
+
+<div class="card border-success mb-3 card-margin" style="max-width: 20rem;">
+  <div class="card-header">Account Details</div>
+  <div class="card-body">
+    <h4 class="card-title">Your current balances and details</h4>
+    <p class="card-text">
+      Balance: <a id="balVal">0.0</a>
+    </p>
+  </div>
+</div>
 
 </body>
 </html>

@@ -2,9 +2,16 @@ function Login(){
     let username = $("#username").val();
     let password = $("#password").val();
 
-    $.get("http://localhost:5000/Login?nick="+username+"&pword="+password, LoginSuccess);
+    $.ajax({
+            url: "http://localhost:5000/Login?nick=" + username,
+            method: 'GET',
+            xhrFields: { withCredentials: true },
+            success: LoginSuccess
+        }
+    );
+    //+"&pword="+password
 }
 
 function LoginSuccess(data){
-    console.log("Success");
+    location.href = "./account.html";
 }
