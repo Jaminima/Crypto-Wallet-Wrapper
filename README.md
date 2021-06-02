@@ -2,6 +2,8 @@
 
 This project aims to provide simplified interaction with [Bitcoin Core](https://github.com/bitcoin/bitcoin) like wallets. Enabling the writing of C# apps that can exploit the wallet libray or web enabled apps via the provided simple API.
 
+Included is a [Simple Site](https://github.com/Jaminima/Crypto-Wallet-Wrapper/tree/main/Simple-Site), functioning as nothing more than a web wallet. More details are available in its readme.
+
 ## Important Notes
 
 ## No Security
