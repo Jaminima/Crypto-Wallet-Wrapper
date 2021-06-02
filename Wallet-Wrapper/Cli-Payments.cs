@@ -8,7 +8,8 @@ namespace Wallet_Wrapper
     {
         public static async Task<string> PayOut(string address, float amount, bool deductFees = true)
         {
-            return await Cli_Manager.DoAndReadClientRequest(new string[] { "sendtoaddress", address, amount.ToString(), "Pay Out", "Customer", deductFees.ToString().ToLower() });
+            var t = await Cli_Manager.DoAndReadClientRequest<object>(new object[] { "sendtoaddress", address, amount, "Pay Out", "Customer", deductFees });
+            return t.result.ToString();
         }
 
         public static async Task<object> ConfirmPayment(string receiveAddress, string txId)

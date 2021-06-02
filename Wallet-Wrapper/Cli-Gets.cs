@@ -6,17 +6,20 @@ namespace Wallet_Wrapper
     {
         public static async Task<Objects.Wallet> GetWalletInfo()
         {
-            return await Cli_Manager.DoAndReadClientRequest<Objects.Wallet>("getwalletinfo");
+            var t = await Cli_Manager.DoAndReadClientRequest<Objects.Wallet>("getwalletinfo");
+            return t.result;
         }
 
         public static async Task<string> GetNetworkInfo()
         {
-            return await Cli_Manager.DoAndReadClientRequest("getnetworkinfo");
+            var t = await Cli_Manager.DoAndReadClientRequest<object>("getnetworkinfo");
+            return t.result.ToString();
         }
 
         public static async Task<string> GetBlockChainInfo()
         {
-            return await Cli_Manager.DoAndReadClientRequest("getblockchaininfo");
+            var t = await Cli_Manager.DoAndReadClientRequest<object>("getblockchaininfo");
+            return t.result.ToString();
         }
 
         public static async Task<bool> IsNetworkRunning()
@@ -31,22 +34,26 @@ namespace Wallet_Wrapper
 
         public static async Task<string> GetNewWalletAddress()
         {
-            return await Cli_Manager.DoAndReadClientRequest("getnewaddress");
+            var t = await Cli_Manager.DoAndReadClientRequest<object>("getnewaddress");
+            return t.result.ToString();
         }
 
         public static async Task<string> GetAccounts()
         {
-            return await Cli_Manager.DoAndReadClientRequest("listaccounts");
+            var t = await Cli_Manager.DoAndReadClientRequest<object>("listaccounts");
+            return t.result.ToString();
         }
 
         public static async Task<Objects.Address> VerifyAddress(string address)
         {
-            return await Cli_Manager.DoAndReadClientRequest<Objects.Address>("validateaddress", address);
+            var t = await Cli_Manager.DoAndReadClientRequest<Objects.Address>("validateaddress", address);
+            return t.result;
         }
 
         public static async Task<Objects.Transaction> GetTransaction(string txid)
         {
-            return await Cli_Manager.DoAndReadClientRequest<Objects.Transaction>("gettransaction", txid);
+            var t = await Cli_Manager.DoAndReadClientRequest<Objects.Transaction>("gettransaction", txid);
+            return t.result;
         }
     }
 }

@@ -1,5 +1,6 @@
 {
   "CorePath": "D:/Garlicoin/",
   "coindName": "garlicoind.exe",
-  "cliName": "garlicoin-cli.exe"
+  "cliName": "garlicoin-cli.exe",
+  "rpcAddress": "http://127.0.0.1:42068/"
 }
