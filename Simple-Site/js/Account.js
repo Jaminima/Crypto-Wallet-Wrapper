@@ -5,6 +5,8 @@ function UpdateUserData(){
     $("#usrNme").text(userData["nickname"]);
 
     $("#depositAddr").text(userData["inAddress"]);
+
+    $("#withdrawAmount").attr({"max":userData["balance"]});
 }
 
 function LoadUserData(){
@@ -80,4 +82,44 @@ function ConfirmTxSuccess(data){
     $("#txId").val("");
     LoadUserData();
 }
+
+function WithdrawConfirmation(){
+    $("#WithdrawButton").hide();
+    $("#WithdrawConfirm").show();
+}
+
+function WithdrawCancel(){
+    $("#WithdrawButton").show();
+    $("#WithdrawConfirm").hide();
+}
+
+function WithdrawAmount(){
+    $.ajax({
+            url: "http://localhost:5000/Withdraw?outAddr="+$("#withdrawAddr").val()+"&amount="+$("#withdrawAmount").val(),
+            method: 'GET',
+            xhrFields: { withCredentials: true },
+            success: WithdrawSuccess,
+            error: WithdrawFail
+        }
+    );
+    WithdrawCancel();
+}
+
+function WithdrawSuccess(data){
+    $("#outTxIdBox").show();
+    $("#outTxId").text(data);
+    $("#withdrawAddr").val("");
+    $("#withdrawAmount").val("");
+    LoadUserData();
+}
+
+function WithdrawFail(xhr, text, error){
+    $("#WithdrawError").text(xhr.responseText);
+    $("#WithdrawErrorBox").show();
+}
+
+function HideWithdrawTx(){
+    $("#outTxIdBox").hide();
+}
+
 LoadUserData();

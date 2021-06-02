@@ -39,7 +39,7 @@
 
 <div style="display: inline-flex">
 
-  <div class="card border-success mb-4 card-margin" style="max-width: 30rem;">
+  <div class="card border-success mb-4 card-margin" style="max-width: 25rem;">
     <div class="card-header">Account Details</div>
     <div class="card-body">
       <h4 class="card-title">Your current balances and details</h4>
@@ -50,7 +50,7 @@
     </div>
   </div>
 
-  <div class="card border-primary mb-4 card-margin" style="max-width: 30rem;">
+  <div class="card border-primary mb-4 card-margin" style="max-width: 25rem;">
     <div class="card-header">Deposit</div>
     <div class="card-body">
       <h4 class="card-title">Depositing Into your Account</h4>
@@ -69,7 +69,7 @@
     </div>
   </div>
 
-  <div class="card border-warning mb-4 card-margin" style="max-width: 30rem;">
+  <div class="card border-warning mb-4 card-margin" style="max-width: 25rem;">
     <div class="card-header">Deposit Confirmation</div>
     <div class="card-body">
       <h4 class="card-title">Confirm Deposit Into your Account</h4>
@@ -86,6 +86,45 @@
           <button type="button" class="btn btn-warning" onclick="ConfirmTransaction()">Confirm</button>
         </fieldset>
       </form>
+    </div>
+  </div>
+
+  <div class="card border-info mb-4 card-margin" style="max-width: 25rem;">
+    <div class="card-header">Withdrawal</div>
+    <div class="card-body">
+      <h4 class="card-title">Withdrawing From your Account</h4>
+
+      <form>
+        <fieldset>
+          <div class="form-group">
+            <input id="withdrawAddr" type="text" class="form-control" placeholder="Withdrawal Address">
+            </br>
+            <input id="withdrawAmount" type="number" class="form-control" placeholder="Withdrawal Amount" step="0.1" max="10" min="0">
+          </div>
+          </br>
+
+          <div class="alert alert-danger" style="display: none" id="WithdrawErrorBox">
+            <strong>Oh Shucks!</strong> <a id="WithdrawError"></a>
+          </div>
+
+          <div id="WithdrawConfirm" style="display: none" >
+            <div class="alert alert-warning">
+              <strong>Be Aware!</strong> Any incurred transaction fees will be subtracted from your withdrawal amount. Remember to <strong>Check Your Address</strong>, miss-directed payments will be lost.
+            </div>
+            <button type="button" class="btn btn-info" id="WithdrawYesButton" onclick="WithdrawAmount()">Confirm</button>
+            <button type="button" class="btn btn-dark" id="WithdrawCancelButton" onclick="WithdrawCancel()">Cancel</button>
+          </div>
+
+          <button type="button" class="btn btn-info" id="WithdrawButton" onclick="WithdrawConfirmation()">Withdraw</button>
+        </fieldset>
+      </form>
+
+      </br>
+      <div class="alert alert-dismissible alert-info" id="outTxIdBox" style="display: none">
+        <button type="button" class="btn-close" onclick="HideWithdrawTx()"></button>
+        <strong>Transaction Id: </strong> <p id="outTxId"></p>
+      </div>
+
     </div>
   </div>
 
