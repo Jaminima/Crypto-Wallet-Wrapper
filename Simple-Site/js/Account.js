@@ -12,9 +12,14 @@ function LoadUserData(){
             url: "http://localhost:5000/Account",
             method: 'GET',
             xhrFields: { withCredentials: true },
-            success: LoadDataSuccess
+            success: LoadDataSuccess,
+            error: LoadDataFail
         }
     );
+}
+
+function LoadDataFail(){
+    location.href="./login.html";
 }
 
 function LoadDataSuccess(data){
