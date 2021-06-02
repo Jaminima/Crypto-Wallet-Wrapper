@@ -22,6 +22,16 @@ function LoadDataSuccess(data){
     UpdateUserData();
 }
 
+function GenerateNewAddressConfirmation(){
+    $("#GenerateButton").hide();
+    $("#GenerateConfirm").show();
+}
+
+function GenerateCancel(){
+    $("#GenerateButton").show();
+    $("#GenerateConfirm").hide();
+}
+
 function GenerateNewAddress(){
     $.ajax({
             url: "http://localhost:5000/PayInAddress",
@@ -30,6 +40,7 @@ function GenerateNewAddress(){
             success: GenerateNewSuccess
         }
     );
+    GenerateCancel();
 }
 
 function GenerateNewSuccess(data){
@@ -52,13 +63,16 @@ function ConfirmTransaction(){
 
 function ConfrimTXFail(xhr, text, error){
     $("#txError").text(xhr.responseText);
-    $("#txError").show();
+    $("#txErrorBox").show();
+}
+
+function HideTxError(){
+    $("#txErrorBox").hide();
 }
 
 function ConfirmTxSuccess(data){
-    $("#txError").hide();
+    $("#txErrorBox").hide();
     $("#txId").val("");
     LoadUserData();
 }
-
 LoadUserData();

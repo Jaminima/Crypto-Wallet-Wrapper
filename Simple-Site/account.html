@@ -57,7 +57,15 @@
       <p class="card-text">
         Address: <a id="depositAddr">N/A</a></br>
       </p>
-      <button type="button" class="btn btn-primary" onclick="GenerateNewAddress()">Generate Address</button>
+      <button type="button" class="btn btn-primary" id="GenerateButton" onclick="GenerateNewAddressConfirmation()">Generate Address</button>
+
+      <div id="GenerateConfirm" style="display: none" >
+        <div class="alert alert-danger">
+          <strong>Be Aware!</strong> Generating a new Wallet Address means <strong>ALL</strong> deposits you haven't confirmed will be lost.
+        </div>
+        <button type="button" class="btn btn-primary" id="GenerateYesButton" onclick="GenerateNewAddress()">Confirm</button>
+        <button type="button" class="btn btn-dark" id="GenerateCancelButton" onclick="GenerateCancel()">Cancel</button>
+      </div>
     </div>
   </div>
 
@@ -71,10 +79,11 @@
             <input id="txId" type="text" class="form-control" placeholder="Transaction Id">
           </div>
           </br>
-          <div style="display: inline-block">
-            <button type="button" class="btn btn-warning" onclick="ConfirmTransaction()">Confirm</button>
-            <span class="badge bg-danger" id="txError" style="display: none">Error Occured</span>
+          <div class="alert alert-dismissible alert-warning" id="txErrorBox" style="display: none" >
+            <button type="button" class="btn-close" onclick="HideTxError()"></button>
+            <strong>An Error Has Occurred</strong> <p id="txError"></p>
           </div>
+          <button type="button" class="btn btn-warning" onclick="ConfirmTransaction()">Confirm</button>
         </fieldset>
       </form>
     </div>
