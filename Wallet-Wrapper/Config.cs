@@ -5,7 +5,7 @@ namespace Wallet_Wrapper
 {
     public class Conf
     {
-        public string CorePath = "D:/Garlicoin/", coindName = "garlicoind.exe", cliName = "garlicoin-cli.exe";
+        public string CorePath = "D:/Garlicoin/", coindName = "garlicoind.exe", rpcAddress = "http://127.0.0.1:42068/", username = "test", password = "test";
     }
 
     public static class Config

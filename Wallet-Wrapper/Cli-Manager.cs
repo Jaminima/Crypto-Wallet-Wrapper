@@ -1,5 +1,12 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,75 +16,84 @@ namespace Wallet_Wrapper
     {
         private static Process garlicoind;
 
-        public static Process garlicli
+        private class RequestBody
         {
-            get
+            public string jsonrpc = "1.0", id = "wrapper", method;
+
+            [JsonProperty("params")]
+            public object[] paramaters;
+        }
+
+        public class ResponseError
+        {
+            public int code;
+            public string message;
+        }
+
+        public class ResponseBody<T>
+        {
+            public string id;
+            public ResponseError error;
+            public T result;
+        }
+
+        private static async Task<ResponseBody<T>> DoReadClientRequest<T>(object[] commands)
+        {
+            using (var httpClient = new HttpClient())
             {
-                Process cli = new Process();
-                cli.StartInfo = new ProcessStartInfo(Config.conf.CorePath + Config.conf.cliName);
-                cli.StartInfo.RedirectStandardOutput = true;
-                cli.StartInfo.RedirectStandardError = true;
-                cli.StartInfo.CreateNoWindow = false;
-                return cli;
+                using (var request = new HttpRequestMessage(new HttpMethod("POST"), Config.conf.rpcAddress))
+                {
+                    var base64authorization = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{Config.conf.username}:{Config.conf.password}"));
+                    request.Headers.TryAddWithoutValidation("Authorization", $"Basic {base64authorization}");
+
+                    RequestBody requestBody = new RequestBody() { method = commands[0].ToString(), paramaters = commands.TakeLast(commands.Length - 1).ToArray() };
+
+                    request.Content = new StringContent(JsonConvert.SerializeObject(requestBody));
+                    request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+
+                    string s;
+                    try
+                    {
+                        var response = await httpClient.SendAsync(request);
+                        s = await response.Content.ReadAsStringAsync();
+                        return JsonConvert.DeserializeObject<ResponseBody<T>>(s);
+                    }
+                    catch (WebException e)
+                    {
+                        StreamReader reader = new StreamReader(e.Response.GetResponseStream());
+                        s = reader.ReadToEnd();
+                        reader.Close();
+                        ResponseBody<T> error = JsonConvert.DeserializeObject<ResponseBody<T>>(s);
+                        throw new Exception(error.error.message);
+                    }
+                    catch (JsonException e)
+                    {
+                        throw e;
+                    }
+                }
             }
         }
 
-        public static async Task<string> DoAndReadClientRequest(string command)
+        public static async Task<ResponseBody<T>> DoAndReadClientRequest<T>(object command)
         {
-            return await DoAndReadClientRequest(new string[] { command });
+            return await DoAndReadClientRequest<T>(new object[] { command });
         }
 
-        public static async Task<string> DoAndReadClientRequest(string command1, string command2)
+        public static async Task<ResponseBody<T>> DoAndReadClientRequest<T>(object command1, object command2)
         {
-            return await DoAndReadClientRequest(new string[] { command1, command2 });
+            return await DoAndReadClientRequest<T>(new object[] { command1, command2 });
         }
 
-        public static async Task<string> DoAndReadClientRequest(string command1, string command2, string command3)
+        public static async Task<ResponseBody<T>> DoAndReadClientRequest<T>(object command1, object command2, object command3)
         {
-            return await DoAndReadClientRequest(new string[] { command1, command2, command3 });
+            return await DoAndReadClientRequest<T>(new object[] { command1, command2, command3 });
         }
 
-        public static async Task<string> DoAndReadClientRequest(string[] commands)
+        public static async Task<ResponseBody<T>> DoAndReadClientRequest<T>(object[] commands)
         {
-            Process Req = garlicli;
-
-            foreach (string c in commands) Req.StartInfo.ArgumentList.Add(c);
-
-            Req.Start();
-
-            bool finished = Req.WaitForExit(5000);
-
-            if (Req.ExitCode != 0 || !finished)
-            {
-                Req.Kill();
-                throw new System.Exception(Req.StandardError.ReadToEnd());
-            }
-
-            string s = await Req.StandardOutput.ReadToEndAsync();
+            ResponseBody<T> s = await DoReadClientRequest<T>(commands);
 
             return s;
-        }
-
-        public static async Task<T> DoAndReadClientRequest<T>(string command)
-        {
-            return await DoAndReadClientRequest<T>(new string[] { command });
-        }
-
-        public static async Task<T> DoAndReadClientRequest<T>(string command1, string command2)
-        {
-            return await DoAndReadClientRequest<T>(new string[] { command1, command2 });
-        }
-
-        public static async Task<T> DoAndReadClientRequest<T>(string command1, string command2, string command3)
-        {
-            return await DoAndReadClientRequest<T>(new string[] { command1, command2, command3 });
-        }
-
-        public static async Task<T> DoAndReadClientRequest<T>(string[] commands)
-        {
-            string s = await DoAndReadClientRequest(commands);
-
-            return JsonConvert.DeserializeObject<T>(s);
         }
 
         public static async void Start(bool IgnoreAlreadyRunning = true)
