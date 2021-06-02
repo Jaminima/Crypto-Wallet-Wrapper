@@ -40,7 +40,7 @@ namespace Wallet_Wrapper
             confirmedTxIds.Add(txId);
 
             StreamWriter writer = new StreamWriter(new FileStream("./confirmedTxIds.txt", FileMode.Append));
-            writer.Write(txId);
+            writer.WriteLine(txId);
             writer.Flush();
             writer.Close();
         }

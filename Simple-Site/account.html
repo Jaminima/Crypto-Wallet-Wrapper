@@ -37,14 +37,49 @@
   </div>
 </nav>
 
-<div class="card border-success mb-3 card-margin" style="max-width: 20rem;">
-  <div class="card-header">Account Details</div>
-  <div class="card-body">
-    <h4 class="card-title">Your current balances and details</h4>
-    <p class="card-text">
-      Balance: <a id="balVal">0.0</a>
-    </p>
+<div style="display: inline-flex">
+
+  <div class="card border-success mb-4 card-margin" style="max-width: 30rem;">
+    <div class="card-header">Account Details</div>
+    <div class="card-body">
+      <h4 class="card-title">Your current balances and details</h4>
+      <p class="card-text">
+        Username: <a id="usrNme">N/A</a></br>
+        Balance: <a id="balVal">0.0</a>
+      </p>
+    </div>
   </div>
+
+  <div class="card border-primary mb-4 card-margin" style="max-width: 30rem;">
+    <div class="card-header">Deposit</div>
+    <div class="card-body">
+      <h4 class="card-title">Depositing Into your Account</h4>
+      <p class="card-text">
+        Address: <a id="depositAddr">N/A</a></br>
+      </p>
+      <button type="button" class="btn btn-primary" onclick="GenerateNewAddress()">Generate Address</button>
+    </div>
+  </div>
+
+  <div class="card border-warning mb-4 card-margin" style="max-width: 30rem;">
+    <div class="card-header">Deposit Confirmation</div>
+    <div class="card-body">
+      <h4 class="card-title">Confirm Deposit Into your Account</h4>
+      <form>
+        <fieldset>
+          <div class="form-group">
+            <input id="txId" type="text" class="form-control" placeholder="Transaction Id">
+          </div>
+          </br>
+          <div style="display: inline-block">
+            <button type="button" class="btn btn-warning" onclick="ConfirmTransaction()">Confirm</button>
+            <span class="badge bg-danger" id="txError" style="display: none">Error Occured</span>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+
 </div>
 
 </body>

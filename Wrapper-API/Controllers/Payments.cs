@@ -33,6 +33,12 @@ namespace Wrapper_API.Controllers
         [HttpGet("Confirm")]
         public async Task<object> ConfirmTransaction([FromQuery] string txId)
         {
+            if (txId==null)
+            {
+                Response.StatusCode = 400;
+                return false;
+            }
+
             WUser u = Authentication.CheckAuthed(Request.Cookies["authkey"]);
             if (u == null)
             {

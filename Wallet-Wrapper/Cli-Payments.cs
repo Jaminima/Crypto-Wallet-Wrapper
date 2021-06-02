@@ -18,6 +18,8 @@ namespace Wallet_Wrapper
 
             Objects.Transaction t = await Cli_Gets.GetTransaction(txId);
 
+            if (t == null) return "Tx Id Is Invalid";
+
             if (t.confirmations < 5)
             {
                 return "Wait Till 5 Confimations";
