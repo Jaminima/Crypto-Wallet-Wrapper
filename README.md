@@ -28,7 +28,9 @@ Download your Crypto's core files.
 
 - [Litecoin Core](https://github.com/litecoin-project/litecoin/releases)
 
-Once downloaded and followed the typical steps to download and setup your core. Find the config.json which gets auto generated on first run of the library. Change your corepath, coindName and cliName to match those in your core folder.
+Once downloaded and followed the typical steps to download and setup your core. You must ensure RPC is enabled in your cores config, typically located in a file like **%appdata%/Garlicoin/garlicoin.conf**. Ensure the **Server** setting is set to 1, also set the **rpcuser**, **rpcpassword** & **rpcport** to sensible values of your choice.
+
+Find the config.json located within your project (requires inital run to generate). Change your **corepath**, **coindName** to match those in your core folder. Also change the **rpcAddress**, **username** & **password** to match what you set in the core config.
 
 When using Garlicoin Core my config ends up looking like:
 
