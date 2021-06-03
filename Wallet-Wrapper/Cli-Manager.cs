@@ -105,13 +105,20 @@ namespace Wallet_Wrapper
             else
             {
                 garlicoind = new Process();
-                garlicoind.StartInfo = new ProcessStartInfo(Config.conf.CorePath + Config.conf.coindName);
-                garlicoind.Start();
+                string fname = Config.conf.CorePath + Config.conf.coindName;
 
-                while (!await Cli_Gets.IsNetworkRunning())
+                if (File.Exists(fname))
                 {
-                    Thread.Sleep(5000);
+
+                    garlicoind.StartInfo = new ProcessStartInfo(fname);
+                    garlicoind.Start();
+
+                    while (!await Cli_Gets.IsNetworkRunning())
+                    {
+                        Thread.Sleep(5000);
+                    }
                 }
+                else throw new System.Exception("Unable to start Network");
             }
         }
     }
