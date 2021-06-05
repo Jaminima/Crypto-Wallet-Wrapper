@@ -13,6 +13,7 @@ namespace Wallet_Wrapper
         public static async Task<string> GetNetworkInfo()
         {
             var t = await Cli_Manager.DoAndReadClientRequest<object>("getnetworkinfo");
+            if (t.error != null) throw new System.Exception(t.error.message);
             return t.result.ToString();
         }
 
