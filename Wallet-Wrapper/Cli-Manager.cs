@@ -104,21 +104,27 @@ namespace Wallet_Wrapper
             }
             else
             {
-                garlicoind = new Process();
-                string fname = Config.conf.CorePath + Config.conf.coindName;
+                //garlicoind = new Process();
+                //string fname = Config.conf.CorePath + Config.conf.coindName;
 
-                if (File.Exists(fname))
+                //if (File.Exists(fname))
+                //{
+
+                //    garlicoind.StartInfo = new ProcessStartInfo(fname);
+                //    garlicoind.Start();
+
+                //    while (!await Cli_Gets.IsNetworkRunning())
+                //    {
+                //        Thread.Sleep(5000);
+                //    }
+                //}
+                //else throw new System.Exception("Unable to start Network");
+
+                while (!await Cli_Gets.IsNetworkRunning())
                 {
-
-                    garlicoind.StartInfo = new ProcessStartInfo(fname);
-                    garlicoind.Start();
-
-                    while (!await Cli_Gets.IsNetworkRunning())
-                    {
-                        Thread.Sleep(5000);
-                    }
+                    Console.WriteLine("Waiting For Network");
+                    Thread.Sleep(5000);
                 }
-                else throw new System.Exception("Unable to start Network");
             }
         }
     }
