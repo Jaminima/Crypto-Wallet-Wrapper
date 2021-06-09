@@ -79,7 +79,15 @@ namespace Wrapper_API.Controllers
             {
                 u.balance -= amount;
                 u.Updated();
-                return await Cli_Payments.PayOut(outAddr, amount);
+
+                Cli_Manager.ResponseBody<object> t = await Cli_Payments.PayOut(outAddr, amount);
+
+                if (t.result!=null)  return t.result.ToString();
+                else
+                {
+                    Response.StatusCode = 500;
+                    return "A Server Error Occured";
+                }
             }
             else
             {

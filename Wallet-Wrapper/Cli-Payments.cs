@@ -6,10 +6,10 @@ namespace Wallet_Wrapper
 {
     public static class Cli_Payments
     {
-        public static async Task<string> PayOut(string address, float amount, bool deductFees = true)
+        public static async Task<Cli_Manager.ResponseBody<object>> PayOut(string address, float amount, bool deductFees = true)
         {
             var t = await Cli_Manager.DoAndReadClientRequest<object>(new object[] { "sendtoaddress", address, amount, "Pay Out", "Customer", deductFees });
-            return t.result.ToString();
+            return t;
         }
 
         public static async Task<object> ConfirmPayment(string receiveAddress, string txId)
