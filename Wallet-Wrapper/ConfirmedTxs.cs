@@ -5,12 +5,13 @@ namespace Wallet_Wrapper
 {
     public static class ConfirmedTxs
     {
+        #region Fields
+
         private static HashSet<string> confirmedTxIds = ReadConfimed();
 
-        public static bool AlreadyConfirmed(string txId)
-        {
-            return confirmedTxIds.Contains(txId);
-        }
+        #endregion Fields
+
+        #region Methods
 
         private static HashSet<string> ReadConfimed()
         {
@@ -27,12 +28,9 @@ namespace Wallet_Wrapper
             return set;
         }
 
-        public static void StoreConfimed()
+        public static bool AlreadyConfirmed(string txId)
         {
-            StreamWriter writer = new StreamWriter(new FileStream("./confirmedTxIds.txt", FileMode.CreateNew));
-            writer.Write(string.Join("\n", confirmedTxIds));
-            writer.Flush();
-            writer.Close();
+            return confirmedTxIds.Contains(txId);
         }
 
         public static void AppendConfirmed(string txId)
@@ -44,5 +42,15 @@ namespace Wallet_Wrapper
             writer.Flush();
             writer.Close();
         }
+
+        public static void StoreConfimed()
+        {
+            StreamWriter writer = new StreamWriter(new FileStream("./confirmedTxIds.txt", FileMode.CreateNew));
+            writer.Write(string.Join("\n", confirmedTxIds));
+            writer.Flush();
+            writer.Close();
+        }
+
+        #endregion Methods
     }
 }

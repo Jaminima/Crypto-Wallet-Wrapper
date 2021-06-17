@@ -2,7 +2,11 @@
 {
     public class Address
     {
-        public bool isvalid { get; set; }
+        #region Properties
+
         public string address { get; set; }
+        public bool isvalid { get; set; }
+
+        #endregion Properties
     }
 }

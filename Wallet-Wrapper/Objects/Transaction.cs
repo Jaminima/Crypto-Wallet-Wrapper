@@ -2,18 +2,19 @@
 {
     public class Transaction
     {
+        #region Properties
+
         public float amount { get; set; }
-        public float fee { get; set; }
-
         public string blockhash { get; set; }
-        public string txid { get; set; }
-
-        public long confirmations { get; set; }
         public long blockindex { get; set; }
         public long blocktime { get; set; }
+        public long confirmations { get; set; }
+        public Account[] details { get; set; }
+        public float fee { get; set; }
         public long time { get; set; }
         public long timereceived { get; set; }
+        public string txid { get; set; }
 
-        public Account[] details { get; set; }
+        #endregion Properties
     }
 }

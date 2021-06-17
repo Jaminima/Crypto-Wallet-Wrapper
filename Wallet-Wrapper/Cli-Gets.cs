@@ -4,10 +4,18 @@ namespace Wallet_Wrapper
 {
     public static class Cli_Gets
     {
-        public static async Task<Objects.Wallet> GetWalletInfo()
+        #region Methods
+
+        public static async Task<string> GetAccounts()
         {
-            var t = await Cli_Manager.DoAndReadClientRequest<Objects.Wallet>("getwalletinfo");
-            return t.result;
+            var t = await Cli_Manager.DoAndReadClientRequest<object>("listaccounts");
+            return t.result.ToString();
+        }
+
+        public static async Task<string> GetBlockChainInfo()
+        {
+            var t = await Cli_Manager.DoAndReadClientRequest<object>("getblockchaininfo");
+            return t.result.ToString();
         }
 
         public static async Task<string> GetNetworkInfo()
@@ -17,10 +25,22 @@ namespace Wallet_Wrapper
             return t.result.ToString();
         }
 
-        public static async Task<string> GetBlockChainInfo()
+        public static async Task<string> GetNewWalletAddress()
         {
-            var t = await Cli_Manager.DoAndReadClientRequest<object>("getblockchaininfo");
+            var t = await Cli_Manager.DoAndReadClientRequest<object>("getnewaddress");
             return t.result.ToString();
+        }
+
+        public static async Task<Objects.Transaction> GetTransaction(string txid)
+        {
+            var t = await Cli_Manager.DoAndReadClientRequest<Objects.Transaction>("gettransaction", txid);
+            return t.result;
+        }
+
+        public static async Task<Objects.Wallet> GetWalletInfo()
+        {
+            var t = await Cli_Manager.DoAndReadClientRequest<Objects.Wallet>("getwalletinfo");
+            return t.result;
         }
 
         public static async Task<bool> IsNetworkRunning()
@@ -33,28 +53,12 @@ namespace Wallet_Wrapper
             catch { return false; }
         }
 
-        public static async Task<string> GetNewWalletAddress()
-        {
-            var t = await Cli_Manager.DoAndReadClientRequest<object>("getnewaddress");
-            return t.result.ToString();
-        }
-
-        public static async Task<string> GetAccounts()
-        {
-            var t = await Cli_Manager.DoAndReadClientRequest<object>("listaccounts");
-            return t.result.ToString();
-        }
-
         public static async Task<Objects.Address> VerifyAddress(string address)
         {
             var t = await Cli_Manager.DoAndReadClientRequest<Objects.Address>("validateaddress", address);
             return t.result;
         }
 
-        public static async Task<Objects.Transaction> GetTransaction(string txid)
-        {
-            var t = await Cli_Manager.DoAndReadClientRequest<Objects.Transaction>("gettransaction", txid);
-            return t.result;
-        }
+        #endregion Methods
     }
 }

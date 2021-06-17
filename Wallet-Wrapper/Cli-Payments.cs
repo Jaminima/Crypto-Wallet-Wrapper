@@ -6,11 +6,7 @@ namespace Wallet_Wrapper
 {
     public static class Cli_Payments
     {
-        public static async Task<Cli_Manager.ResponseBody<object>> PayOut(string address, float amount, bool deductFees = true)
-        {
-            var t = await Cli_Manager.DoAndReadClientRequest<object>(new object[] { "sendtoaddress", address, amount, "Pay Out", "Customer", deductFees });
-            return t;
-        }
+        #region Methods
 
         public static async Task<object> ConfirmPayment(string receiveAddress, string txId)
         {
@@ -33,5 +29,13 @@ namespace Wallet_Wrapper
             }
             else return "Transaction does not check out";
         }
+
+        public static async Task<Cli_Manager.ResponseBody<object>> PayOut(string address, float amount, bool deductFees = true)
+        {
+            var t = await Cli_Manager.DoAndReadClientRequest<object>(new object[] { "sendtoaddress", address, amount, "Pay Out", "Customer", deductFees });
+            return t;
+        }
+
+        #endregion Methods
     }
 }

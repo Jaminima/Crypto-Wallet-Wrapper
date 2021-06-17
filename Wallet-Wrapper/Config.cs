@@ -3,22 +3,15 @@ using System.IO;
 
 namespace Wallet_Wrapper
 {
-    public class Conf
-    {
-        public string rpcAddress = "http://127.0.0.1:42068/", username = "test", password = "test";
-    }
-
     public static class Config
     {
+        #region Fields
+
         public static Conf conf = Load();
 
-        public static void Save(Conf conf)
-        {
-            StreamWriter writer = new StreamWriter(new FileStream("./config.json", FileMode.CreateNew));
-            writer.Write(JsonConvert.SerializeObject(conf));
-            writer.Flush();
-            writer.Close();
-        }
+        #endregion Fields
+
+        #region Methods
 
         public static Conf Load()
         {
@@ -38,5 +31,24 @@ namespace Wallet_Wrapper
             }
             return c;
         }
+
+        public static void Save(Conf conf)
+        {
+            StreamWriter writer = new StreamWriter(new FileStream("./config.json", FileMode.CreateNew));
+            writer.Write(JsonConvert.SerializeObject(conf));
+            writer.Flush();
+            writer.Close();
+        }
+
+        #endregion Methods
+    }
+
+    public class Conf
+    {
+        #region Fields
+
+        public string rpcAddress = "http://127.0.0.1:42068/", username = "test", password = "test";
+
+        #endregion Fields
     }
 }

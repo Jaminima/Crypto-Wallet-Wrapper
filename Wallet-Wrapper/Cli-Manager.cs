@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -14,28 +13,7 @@ namespace Wallet_Wrapper
 {
     public static class Cli_Manager
     {
-        private static Process garlicoind;
-
-        private class RequestBody
-        {
-            public string jsonrpc = "1.0", id = "wrapper", method;
-
-            [JsonProperty("params")]
-            public object[] paramaters;
-        }
-
-        public class ResponseError
-        {
-            public int code;
-            public string message;
-        }
-
-        public class ResponseBody<T>
-        {
-            public string id;
-            public ResponseError error;
-            public T result;
-        }
+        #region Methods
 
         private static async Task<ResponseBody<T>> DoReadClientRequest<T>(object[] commands)
         {
@@ -74,6 +52,24 @@ namespace Wallet_Wrapper
             }
         }
 
+        #endregion Methods
+
+        #region Classes
+
+        private class RequestBody
+        {
+            #region Fields
+
+            public string jsonrpc = "1.0", id = "wrapper", method;
+
+            [JsonProperty("params")]
+            public object[] paramaters;
+
+            #endregion Fields
+        }
+
+        #endregion Classes
+
         public static async Task<ResponseBody<T>> DoAndReadClientRequest<T>(object command)
         {
             return await DoAndReadClientRequest<T>(new object[] { command });
@@ -104,6 +100,27 @@ namespace Wallet_Wrapper
                 Thread.Sleep(5000);
             }
             return true;
+        }
+
+        public class ResponseBody<T>
+        {
+            #region Fields
+
+            public ResponseError error;
+            public string id;
+            public T result;
+
+            #endregion Fields
+        }
+
+        public class ResponseError
+        {
+            #region Fields
+
+            public int code;
+            public string message;
+
+            #endregion Fields
         }
     }
 }
