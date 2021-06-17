@@ -96,36 +96,14 @@ namespace Wallet_Wrapper
             return s;
         }
 
-        public static async void Start(bool IgnoreAlreadyRunning = true)
+        public static async Task<bool> TryStart()
         {
-            if (await Cli_Gets.IsNetworkRunning())
+            while (!await Cli_Gets.IsNetworkRunning())
             {
-                if (!IgnoreAlreadyRunning) throw new System.Exception("Network is already running!");
+                Console.WriteLine("Waiting for Network Start");
+                Thread.Sleep(5000);
             }
-            else
-            {
-                //garlicoind = new Process();
-                //string fname = Config.conf.CorePath + Config.conf.coindName;
-
-                //if (File.Exists(fname))
-                //{
-
-                //    garlicoind.StartInfo = new ProcessStartInfo(fname);
-                //    garlicoind.Start();
-
-                //    while (!await Cli_Gets.IsNetworkRunning())
-                //    {
-                //        Thread.Sleep(5000);
-                //    }
-                //}
-                //else throw new System.Exception("Unable to start Network");
-
-                while (!await Cli_Gets.IsNetworkRunning())
-                {
-                    Console.WriteLine("Waiting For Network");
-                    Thread.Sleep(5000);
-                }
-            }
+            return true;
         }
     }
 }
