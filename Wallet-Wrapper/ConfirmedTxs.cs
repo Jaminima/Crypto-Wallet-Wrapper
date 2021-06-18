@@ -3,21 +3,6 @@ using System.IO;
 
 namespace Wallet_Wrapper
 {
-    public class TXConfimer
-    {
-        public static TXConfimer confimerInstance = new FlatFileTXConfimer();
-
-        public virtual bool IsTXUsed(string tx)
-        {
-            return false;
-        }
-
-        public virtual void UseTX(string tx)
-        {
-
-        }
-    }
-
     public class FlatFileTXConfimer : TXConfimer
     {
         #region Fields
@@ -48,6 +33,14 @@ namespace Wallet_Wrapper
             return confirmedTxIds.Contains(tx);
         }
 
+        public void StoreConfimed()
+        {
+            StreamWriter writer = new StreamWriter(new FileStream("./confirmedTxIds.txt", FileMode.CreateNew));
+            writer.Write(string.Join("\n", confirmedTxIds));
+            writer.Flush();
+            writer.Close();
+        }
+
         public override void UseTX(string tx)
         {
             confirmedTxIds.Add(tx);
@@ -58,12 +51,26 @@ namespace Wallet_Wrapper
             writer.Close();
         }
 
-        public void StoreConfimed()
+        #endregion Methods
+    }
+
+    public class TXConfimer
+    {
+        #region Fields
+
+        public static TXConfimer confimerInstance = new FlatFileTXConfimer();
+
+        #endregion Fields
+
+        #region Methods
+
+        public virtual bool IsTXUsed(string tx)
         {
-            StreamWriter writer = new StreamWriter(new FileStream("./confirmedTxIds.txt", FileMode.CreateNew));
-            writer.Write(string.Join("\n", confirmedTxIds));
-            writer.Flush();
-            writer.Close();
+            return false;
+        }
+
+        public virtual void UseTX(string tx)
+        {
         }
 
         #endregion Methods
