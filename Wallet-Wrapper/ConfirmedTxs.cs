@@ -3,11 +3,26 @@ using System.IO;
 
 namespace Wallet_Wrapper
 {
-    public static class ConfirmedTxs
+    public class TXConfimer
+    {
+        public static TXConfimer confimerInstance = new FlatFileTXConfimer();
+
+        public virtual bool IsTXUsed(string tx)
+        {
+            return false;
+        }
+
+        public virtual void UseTX(string tx)
+        {
+
+        }
+    }
+
+    public class FlatFileTXConfimer : TXConfimer
     {
         #region Fields
 
-        private static HashSet<string> confirmedTxIds = ReadConfimed();
+        private HashSet<string> confirmedTxIds = ReadConfimed();
 
         #endregion Fields
 
@@ -28,22 +43,22 @@ namespace Wallet_Wrapper
             return set;
         }
 
-        public static bool AlreadyConfirmed(string txId)
+        public override bool IsTXUsed(string tx)
         {
-            return confirmedTxIds.Contains(txId);
+            return confirmedTxIds.Contains(tx);
         }
 
-        public static void AppendConfirmed(string txId)
+        public override void UseTX(string tx)
         {
-            confirmedTxIds.Add(txId);
+            confirmedTxIds.Add(tx);
 
             StreamWriter writer = new StreamWriter(new FileStream("./confirmedTxIds.txt", FileMode.Append));
-            writer.WriteLine(txId);
+            writer.WriteLine(tx);
             writer.Flush();
             writer.Close();
         }
 
-        public static void StoreConfimed()
+        public void StoreConfimed()
         {
             StreamWriter writer = new StreamWriter(new FileStream("./confirmedTxIds.txt", FileMode.CreateNew));
             writer.Write(string.Join("\n", confirmedTxIds));

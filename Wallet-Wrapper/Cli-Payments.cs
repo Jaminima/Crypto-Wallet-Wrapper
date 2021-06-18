@@ -10,7 +10,7 @@ namespace Wallet_Wrapper
 
         public static async Task<object> ConfirmPayment(string receiveAddress, string txId)
         {
-            if (ConfirmedTxs.AlreadyConfirmed(txId)) { return "Transaction has already been redeemed"; }
+            if (TXConfimer.confimerInstance.IsTXUsed(txId)) { return "Transaction has already been redeemed"; }
 
             Objects.Transaction t = await Cli_Gets.GetTransaction(txId);
 
@@ -24,7 +24,7 @@ namespace Wallet_Wrapper
             IEnumerable<Objects.Account> f = t.details.Where(x => x.category == "receive" && x.address == receiveAddress);
             if (f.Any())
             {
-                ConfirmedTxs.AppendConfirmed(txId);
+                TXConfimer.confimerInstance.UseTX(txId);
                 return f.First();
             }
             else return "Transaction does not check out";

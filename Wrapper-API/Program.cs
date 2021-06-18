@@ -11,7 +11,7 @@ namespace Wrapper_API
         {
             Console.WriteLine("Ensuring the Network is Running, this may take some time.\n");
 
-            Cli_Manager.Start(true);
+            Cli_Manager.TryStart().Wait();
 
             Console.WriteLine("Network Started Successfully.\n");
 
