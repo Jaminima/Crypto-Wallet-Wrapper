@@ -31,6 +31,12 @@ namespace Wallet_Wrapper
             return t.result.ToString();
         }
 
+        public static async Task<Objects.Balance> GetWalletBalance(int confirmations = 10)
+        {
+            var t = await Cli_Manager.DoAndReadClientRequest<Objects.Balance>("getbalance", "*", confirmations);
+            return t.result;
+        }
+
         public static async Task<Objects.Transaction> GetTransaction(string txid)
         {
             var t = await Cli_Manager.DoAndReadClientRequest<Objects.Transaction>("gettransaction", txid);
