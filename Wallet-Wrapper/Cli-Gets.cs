@@ -31,9 +31,9 @@ namespace Wallet_Wrapper
             return t.result.ToString();
         }
 
-        public static async Task<float> GetWalletBalance(int confirmations = 10)
+        public static async Task<float> GetWalletBalance(string account = "balanceIN", int confirmations = 10)
         {
-            var t = await Cli_Manager.DoAndReadClientRequest<string>("getbalance", "*", confirmations);
+            var t = await Cli_Manager.DoAndReadClientRequest<string>("getbalance", account, confirmations);
             return float.Parse(t.result);
         }
 
